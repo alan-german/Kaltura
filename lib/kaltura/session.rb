@@ -2,7 +2,10 @@ module Kaltura
   class Session < DelegateClass(Hashie::Mash)
     extend ClientResource
 
-    SESSION_TYPE = 2
+    # SESSION_TYPE = 2 # don't default to Admin API, fer cryin' out loud!
+    SESSION_TYPE = 0
+    EXPIRES = 3600 * 24 * 365 # one year
+
     @@kaltura_session ||= nil
 
     def self.start
@@ -22,7 +25,8 @@ module Kaltura
     protected
 
     def self._session_request_options
-      { :partnerId => Kaltura.config.partner_id, :secret => Kaltura.config.administrator_secret, :type => SESSION_TYPE }
+      { :partnerId => Kaltura.config.partner_id, :secret => Kaltura.config.administrator_secret,
+        :type => SESSION_TYPE, :expiry => EXPIRES }
     end
 
     def self._clear_kaltura_session
