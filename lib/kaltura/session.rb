@@ -2,8 +2,8 @@ module Kaltura
   class Session < DelegateClass(Hashie::Mash)
     extend ClientResource
 
-    # SESSION_TYPE = 2 # don't default to Admin API, fer cryin' out loud!
-    SESSION_TYPE = 0
+    SESSION_TYPE = 2 # don't default to Admin API, fer cryin' out loud!
+    # SESSION_TYPE = 0
     EXPIRES = 3600 * 24 * 365 # one year
 
     @@kaltura_session ||= nil
